@@ -1,15 +1,18 @@
 # Capstone_3-Saudi_Arabia_Used_Car_Price_Prediction
 
-**Project Description**
+## **Project Description**
+
 Proyek bertujuan untuk membuat model yang dapat memprediksi harga Mobil Bekas Arab Saudi untuk membuat sistem rekomendasi untuk perusahaan marketplace mobil bekas di saudi arabia. Pada set ini terdapat langkah-langkah yang dilakukan yaitu Defining Business Problem, Data Understanding, Exploratory Data Analysis, Data Analysis, Data Preprocessing (Data Cleaning and Feature Engineering), Modeling (Benchmarking Models, Hyperparameter Tuning, Financial Impact Analysis of the model), serta memberikan Kesimpulan dan Rekomendasi berdasarkan kinerja model sebagai Data Scientist kepada pemangku kepentingan.
 
-**Problem Statement**
+## **Problem Statement**
+
 Karena harga jual mobil ditentukan langsung oleh penjual, terkadang penjual mengalami kebingungan dalam menentukan harga yang pantas untuk mobil bekas yang akan dijual, dimana terdapat kemungkinan bahwa penjual akan memberikan harga yang sangat tinggi sehingga harga-harga mobil yang ada pada platform akan menjadi kurang relevan terhadap pasar, sehingga pembeli juga menjadi enggan untuk bertransaksi di platform dan pada akhirnya platform tersebut akan menjadi sepi dan ada kemungkinan untuk bangkrut.
 
 Cara paling jitu untuk menjadikan platform Syarah menjadi platform nomor satu adalah `Sistem rekomendasi harga mobil jual yang akurat`, agar penjual mendapatkan profit yang sepadan dan pembeli juga mendapatkan mobil yang sesuai selera dengan harga yang 'reasonable' (masuk akal). 
 Hal ini sangat dibutuhkan agar baik penjual dan pembeli mempercayai perusahaan sebagai `perusahaan yang capable dalam menciptakan kondisi market yang tidak overprice maupun underprice sehingga baik penjual dan pembeli tidak akan dirugikan.`
 
-**Goals** 
+## **Goals** 
+
 Agar dapat mewujudkan sistem rekomendasi yang relevan, perusahaan membutuhkan suatu tools untuk dapat memprediksi harga mobil bekas seakurat mungkin dengan harga pasar berdasarkan data-data pada mobil tersebut seperti Tahun keluaran mobil, Ukuran Mesin mobil, Fitur pada mobil, Tipe mobil, Perusahaan Pembuat mobil, Jarak Tempuh mobil, Asal mobil, Region mobil yang dijual, dan Transmisi pada mobil. Adanya perbedaan pada fitur-fitur tersebut sudah pasti menyebabkan perbedaan pada harga jual mobil.
 
 Syarah berharap dengan adanya sistem rekomendasi yang memprediksi harga secara fair, maka jumlah user yang aktif pada platform akan bertambah. Sehingga tentu saja hal itu akan menaikkan revenue perusahaan, dalam konteks ini 'paid ads' yang dipurchase oleh pembeli
@@ -21,7 +24,8 @@ Selain itu, kita juga bisa menggunakan nilai R-squared atau adj. R-squared jika 
 
 **Setelah melakukan Analisis, Modeling, dan Tuning, didapatkan Kesimpulan dan Rekomendasi Sebagai Berikut :**
 
-**Conclusion**
+## **Conclusion**
+
 Berdasarkan hasil pemodelan diatas, didapatkan kesimpulan sebagai berikut :
 
 - **Saat melakukan analisis karakteristik mobil yang bersifat Negotiable, tidak ditemukan karakteristik khusus kecuali dari asal mobil tersebut. Dimana pada data mobil bekas yang 'Origin'-nya memiliki nilai 'Unknown', lebih banyak mobil bekas yang harganya 'Negotiable' dibandingkan dengan mobil bekas yang tidak Negotiable**
@@ -67,7 +71,8 @@ Berdasarkan hasil pemodelan diatas, didapatkan kesimpulan sebagai berikut :
 
 - **Pada test set, total transaksi yang diprediksi lebih kecil sebesar 4% dari total transaksi aktual, yang mana hal itu sudah cukup baik karena tidak terlalu berbeda jauh**
   
-**Recommendation**
+## **Recommendation**
+
 Berdasarkan pemodelan dan analisis data yang sudah dilakukan, diberikan rekomendasi sebagai berikut :
 
 - **Untuk penjual yang berasal dari Origin (wilayah) 'Unknown', sebaiknya diberikan rekomendasi untuk membuat harga mobil yang Negotiable**
