@@ -28,22 +28,22 @@ Selain itu, kita juga bisa menggunakan nilai R-squared atau adj. R-squared jika 
 
 Berdasarkan hasil pemodelan diatas, didapatkan kesimpulan sebagai berikut :
 
-- **Saat melakukan analisis karakteristik mobil yang bersifat Negotiable, tidak ditemukan karakteristik khusus kecuali dari asal mobil tersebut. Dimana pada data mobil bekas yang 'Origin'-nya memiliki nilai 'Unknown', lebih banyak mobil bekas yang harganya 'Negotiable' dibandingkan dengan mobil bekas yang tidak Negotiable**
+- **Saat melakukan analisis karakteristik mobil yang bersifat Negotiable, tidak ditemukan karakteristik khusus kecuali dari ukuran mesin dan asal mobil tersebut. Dimana pada data mobil bekas yang 'Origin'-nya memiliki nilai 'Unknown', lebih banyak mobil bekas yang harganya 'Negotiable' dibandingkan dengan mobil bekas yang tidak Negotiable. Data yang bernilai "Unknown" kemungkinan besar adalah mobil yang tidak diketahui asal daerahnya. Selain itu mobil yang "Negotiable" secara umum memiliki ukuran mesin yang lebih besar.**
 
 - **Limitasi pada model adalah sebagai berikut :**
 
     | **Fitur** | **Tipe Data** | **Limitasi** |
     | --- | --- | --- |
-    | Type | Object | Semua nilai unik kolom 'Type' pada dataset (347 tipe mobil) |
+    | Type | Object | Semua nilai unik kolom 'Type' pada dataset (302 tipe mobil) |
     | Region | Object | Semua nilai unik kolom 'Region' pada dataset (27 region)|
-    | Make | Object | Semua nilai unik kolom 'Make' pada dataset (27 Perusahaan) |
+    | Make | Object | Semua nilai unik kolom 'Make' pada dataset (54 Perusahaan) |
     | Gear_Type | Object | Semua nilai unik kolom 'Gear Type' pada dataset (Automatic dan Manual) |
     | Origin | Object | Semua nilai unik kolom 'Origin' pada dataset (4 daerah asal) |
     | Options | Object | Semua nilai unik kolom 'Options Type' pada dataset (Full, Semi Full, Standard) |
-    | Year | Float | Mobil yang dibuat pada diantara tahun 1997 sampai 2022 |
+    | Year | Integer | Mobil yang dibuat pada diantara tahun 1997 sampai 2022 |
     | Engine_Size | Float | Mobil yang kapasitas mesinnya berukuran 1 L - 8 L |
-    | Mileage | Object | Mobil yang Jarak tempuhnya 100 KM - 381500 KM |
-    | Price | Integer | Mobil dengan range harga 10000 SAR - 300000 SAR | 
+    | Mileage | Integer | Mobil yang Jarak tempuhnya 100 KM - 381500 KM |
+    | Price | Integer | Mobil dengan rentang harga 10000 SAR - 300000 SAR | 
 &ensp;
   
 - **Hyperparameter tuning berhasil meningkatkan performa model dalam semua metrik (RMSE, MSE, dan MAPE) dengan hasil sebagai berikut :**
@@ -52,7 +52,7 @@ Berdasarkan hasil pemodelan diatas, didapatkan kesimpulan sebagai berikut :
     - RMSE, MAE & MAPE setelah tuning 2 : 21497, 12165, 16.9%
 
 &ensp;
-- **Model yang dipilih adalah model XGBoost yang ditransformasi ke skala logaritmik terlebih dahulu, kemudian ditransformasi kembali dengan fungsi inverse agar dapat diiterpretasi. Pemilihan ini berdasarkan dari proses cross validation dan model XGBoost mendapatkan nilai score tertinggi dalam semua metrik. Model dengan transformasi logaritmik ini juga memberikan hasil yang lebih baik dibandingkan model tanpa ditransformasi ke skala logaritmik. Hal ini disebabkan karena rentang variasi data yang sangat besar, sehingga model akan lebih mudah belajar dengan skala logaritmik dibandingkan skala normal**
+- **Model yang dipilih adalah model XGBoost yang ditransformasi ke skala logaritmik terlebih dahulu, kemudian ditransformasi kembali dengan fungsi inverse agar dapat diiterpretasi. Pemilihan ini berdasarkan dari proses cross validation dan model XGBoost mendapatkan nilai score tertinggi dalam semua metrik. Model dengan transformasi logaritmik ini juga memberikan hasil yang lebih baik dibandingkan model tanpa ditransformasi ke skala logaritmik. Hal ini disebabkan karena rentang variasi data yang sangat besar, sehingga model akan lebih mudah belajar dengan skala logaritmik dibandingkan skala normal.**
 
 - **Parameter tuning terbaik yang didapat pada model XGBoost adlaah sebagai berikut :**
     - model__regressor__subsample: 0.9
@@ -65,31 +65,32 @@ Berdasarkan hasil pemodelan diatas, didapatkan kesimpulan sebagai berikut :
 &ensp;
 - **Nilai MAPE yang didapatkan setelah tuning adalah 16.9 %, yang mana dapat dikategorikan sebagai 'good forecasting' menurut Lewis, C. D.**
     
-- **Model memiliki hasil prediksi 49 % yang underestimate, dan 51 % yang overestimate, sehingga dapat dikatakan bahwa model ini merupakan model yang cukup balance dalam prediksinya**
+- **Lima Fitur yang paling berpengaruh terhadap pembentukan harga mobil bekas pada model adalah Year (Tahun Produksi Mobil), Make (Perusahan Pembuat Mobil), Engine Size (Kapasitas Mesin Mobil), dan Options (Pilihan Fitur Mobil), dan Type (tipe mobil).**
 
-- **Lima Fitur yang paling berpengaruh terhadap pembentukan harga mobil bekas pada model adalah Year (Tahun Produksi Mobil), Make (Perusahan Pembuat Mobil), Engine Size (Kapasitas Mesin Mobil), dan Options (Pilihan Fitur Mobil), dan Type (tipe mobil)**
+- **Model memiliki hasil prediksi 49 % yang underestimate, dan 51 % yang overestimate, sehingga dapat dikatakan bahwa model ini merupakan model yang cukup balance dalam prediksinya. Selain itu, pada test set, total transaksi yang diprediksi lebih kecil sebesar 4% dari total transaksi aktual, yang mana hal itu sudah cukup baik karena tidak terlalu berbeda jauh yang berarti model sudah bekerja dengan cukup baik.**
 
-- **Pada test set, total transaksi yang diprediksi lebih kecil sebesar 4% dari total transaksi aktual, yang mana hal itu sudah cukup baik karena tidak terlalu berbeda jauh**
   
 ## **Recommendation**
 
 Berdasarkan pemodelan dan analisis data yang sudah dilakukan, diberikan rekomendasi sebagai berikut :
 
-- **Untuk penjual yang berasal dari Origin (wilayah) 'Unknown', sebaiknya diberikan rekomendasi untuk membuat harga mobil yang Negotiable**
+- **Untuk penjual yang berasal dari Origin (wilayah) 'Unknown', sebaiknya diberikan rekomendasi untuk membuat harga mobil yang Negotiable, begitu juga dengan mobil yang ukuran mesinnya lebih besar dari 3.5 L. Meskipun ada juga mobil dengan kapasitas besar yang dijual dengan "Fixed Price", hanya saja tidak ada salahnya untuk sekedar memberikan rekomendasi karena mobil dengan ukuran mesin besar biasanya memiliki karakteristik unik dan nilai intangible tersendiri (prestisius ataupun custom series).**
 
-- **Untuk menguji efektivitas model pada kondisi real, lakukan A/B testing terhadap lakunya mobil antara mobil yang dijual dengan menggunakan harga prediksi dengan mobil yang dijual tanpa menggunakan harga prediksi (ditentukan oleh user langsung tanpa ada rekomendasi)**
+- **Untuk menguji efektivitas model pada kondisi real, lakukan A/B testing terhadap lakunya mobil antara mobil yang dijual dengan menggunakan harga prediksi dengan mobil yang dijual tanpa menggunakan harga prediksi (ditentukan oleh user langsung tanpa ada rekomendasi).**
 
 - **Perusahaan dianjurkan untuk membuat sistem rekomendasi harga dengan menaikkan harga 5 % dari harga prediksi agar revenue perusahaan menyamai revenue aktual. Selain itu, sebaiknya disosialisasikan bahwa sistem rekomendasi harga ini memiliki nilai toleransi +/- 17% terhadap harga pasar, agar user menjadi aware dan dapat mempertimbangkan hal itu dalam menentukan harga jual mobilnya.**
 
 - **Untuk meningkatkan performa model, dapat dilakukan hal-hal berikut :**
-    - Membedakan mobil antik dan mobil non antik berdasarkan tahun pembuatan mobil, dimana semua mobil yang tahun pembuatannya sudah melewati 30 tahun dari tahun terkini. Setelah itu bisa dikembangkan model independen terhadap mobil antik tersebut
+    - Membedakan mobil antik dan mobil non antik berdasarkan tahun pembuatan mobil, dimana semua mobil yang tahun pembuatannya sudah melewati 30 tahun dari tahun terkini. Setelah itu bisa dikembangkan model independen terhadap mobil antik tersebut.
 
-    - Membedakan mobil 'luxury' dan mobil 'komersil' berdasarkan tipe, make, dan harga mobilnya. Setelah itu, kembangkan model independen untuk mobil 'komersil' (contohnya, mobil dengan harga < 100000 SAR) dan mobil 'luxury' (contohnya, mobil dengan harga > 100000 SAR). Hal ini diperlukan untuk membuat model yang akurat untuk masing-masing cluster sehingga harapannya nilai RMSE, MAE, dan MAPE bisa turun secara drastis
+    - Membedakan mobil 'luxury' dan mobil 'komersil' berdasarkan tipe, make, dan harga mobilnya. Setelah itu, kembangkan model independen untuk mobil 'komersil' (contohnya, mobil dengan harga < 100000 SAR) dan mobil 'luxury' (contohnya, mobil dengan harga > 100000 SAR). Hal ini diperlukan untuk membuat model yang akurat untuk masing-masing cluster sehingga harapannya nilai RMSE, MAE, dan MAPE bisa turun secara drastis.
 
-    - Jika memungkinkan untuk mendapatkan lebih banyak data, boleh dicoba untuk menggunakan model yang lebih kompleks seperti neural network agar prediksi/rekomendasi harga yang dihasilkan lebih akurat. Tetapi, jika kondisi datanya dan fitur-fiturnya tidak dapat ditambah, kemungkinan besar hasilnya tidak akan berubah secara signifikan
+    - Jika memungkinkan untuk mendapatkan lebih banyak data, boleh dicoba untuk menggunakan model yang lebih kompleks seperti neural network agar prediksi/rekomendasi harga yang dihasilkan lebih akurat. Tetapi, jika kondisi datanya dan fitur-fiturnya tidak dapat ditambah, kemungkinan besar hasilnya tidak akan berubah secara signifikan.
 
     - Jika memungkinkan, sebaiknya ditambahkan fitur kondisi inspeksi pada data dimana dapat dikasifikasikan menjadi beberapa kategori (contoh : sangat baik, baik, cukup, kurang, dan sangat kurang). Hal ini tentunya akan sangat membantu model untuk membentuk harga prediksi.
 
-    - Jika memungkinkan, sebaiknya ditambahkan fitur yang berisi metode pembayaran yang diterima oleh penjual (apakah cash atau cicilan). Hal ini sudah pasti mempengaruhi harga mobil yang akan dijual karena ada pengaruh dari nilai uang itu sendiri (faktor inflasi dll)
+    - Jika memungkinkan, sebaiknya ditambahkan fitur yang berisi metode pembayaran yang diterima oleh penjual (apakah cash atau cicilan). Hal ini sudah pasti mempengaruhi harga mobil yang akan dijual karena ada pengaruh dari nilai uang itu sendiri (faktor inflasi dll).
 
-- **Jika memungkinkan, sebaiknya pada data ditambahkan kolom user (penjual) agar kita dapat melihat penjual mana yang telah menjual mobil paling banyak, sehingga kita dapat melakukan strategic partnership dengan user tersebut untuk dapat mengejar target perusahaan, yaitu memiliki Gross Transaction Value setinggi mungkin**
+- **Jika memungkinkan, sebaiknya pada data ditambahkan kolom user (penjual) agar kita dapat melihat penjual mana yang telah menjual mobil paling banyak, sehingga kita dapat melakukan strategic partnership dengan user tersebut untuk dapat mengejar target perusahaan, yaitu memiliki Gross Transaction Value setinggi mungkin.**
+
+- **Agar dapat memberikan rekomendasi yang akan membantu penjual merumuskan harga yang lebih akurat, dapat dilakukan analisis karakteristik pada data yang mempunyai prediksi overestimate dan data yang mempunyai prediksi underestimate. Sehingga, selain memberikan rekomendasi harga, penjual juga akan mendapatkan masukan apakah rekomendasi harga yang diberikan bersifat underestimate ataupun overestimate.**  
